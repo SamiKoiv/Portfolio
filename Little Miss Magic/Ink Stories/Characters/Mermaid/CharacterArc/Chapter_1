@@ -1,0 +1,59 @@
+/*
+Tags in use:
+    StartQuest      - Accept quest and add it to QuestLog.
+    RejectQuest     - Reject quest.
+    Return          - Return to original dialogue main section on END.
+*/
+
+=== Chapter_1 ===
+
+= QuestName
+{mermaid}: Slippery Feet
+->END
+
+= Description
+Insert quest description.
+->END
+
+= StartDialogue
+{player}: {mermaid}, you look sad. What's wrong?
+{mermaid}: Oh {player}! I've lost the shoes that allow me to walk on land.
+{player}: Wait now! You don't even have feet! How are you able to wear shoes?
+{mermaid}: Just like anyone, silly. You just take clothing and wear it. Simple.
+The important thing now is that my shoes are gone. Can you please help me get them back?
+
+{player}:
++ Of course.
+    {mermaid}: Thank you {player}. #StartQuest #Return
+    ~ ch1_active = true
+    ->END
++ Sorry, I can't.     #RejectQuest #Return
+    ->END
+
+= Topic
+{
+    - not ch1_active: What's wrong {mermaid}?
+    - else: About your shoes...
+}
+
+->END
+
+= State
+{not ch1_active: ->StartDialogue}
+
+{player}: Can you tell me about the task you gave me?
+{mermaid}: Please help me find my shoes. #Return
+->END
+
+= Complete
+{player}: Here are your shoes.
+{mermaid}: Oh thank you so much {player}!
+Please, accept this small reward. #Return
+~chapterStarted = false
+~ch1_completed = true
+->END
+
+= Fail
+{player}: Insert quest fail dialogue #Return
+~chapterStarted = false
+->END

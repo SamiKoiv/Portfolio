@@ -1,0 +1,43 @@
+=== Interact ===
+{   not Introduction:
+        ->Introduction
+    - else:
+        ->Greeting
+}
+
+= Introduction
+Mermaid: Hi! I haven't seen you before. Are you new to the town?
+Oh, it is you who got their house built here! Welcome! Happy to meet you!
+What's your name?
+{player}?
+Ah ha! Got it. My name is {mermaid}. Nice to meet you {player}!
+->Main
+
+= Greeting
+{mermaid}: Oh, hi {player}!
+->Main
+
+=== Main ===
+{player}: #Topics
+
++ How are you doing?
+    {mermaid}: Ok, I guess...
+    ->Main
+
++ I want to talk about something. #Topics
+    ->Topics
+    
++ I need to go.
+    {mermaid}: See you later alligator!
+    ->END
+
+=== Topics ===
+{mermaid}: Sure thing.
+{player}:
+
++ Do you have any work for me?
+    ->Quest.GiveRandomQuest
+
++ Nevermind
+    ->Main
+->END

@@ -1,0 +1,57 @@
+INCLUDE CharacterArc/Chapter_1
+
+VAR ch1_active = false
+VAR ch1_completed = false
+
+=== Quest ===
+
+= GiveRandomQuest
+{not onQuest:
+    {mermaid}: Yes! #RandomQuest
+    ->END
+-else:
+    {mermaid}: Nothing at the moment.
+    ->Main
+}
+->END
+
+= QuestName
+// Used in QuestLog UI
+{
+    - chapter == 1: -> Chapter_1.QuestName
+}
+
+= Description
+// Used in QuestLog UI
+{
+    - chapter == 1: -> Chapter_1.Description
+}
+
+= StartDialogue
+{
+    - chapter == 1: -> Chapter_1.StartDialogue
+}
+
+= Topic
+// This one-liner is used to bring up the quest in normal dialogue.
+{
+    - chapter == 1: -> Chapter_1.Topic
+}
+
+= State
+// This message is shown when quest is in progess.
+{
+    - chapter == 1: -> Chapter_1.State
+}
+
+= Complete
+// This message is shown when quest is completed.
+{
+    - chapter == 1: -> Chapter_1.Complete
+}
+
+= Fail
+// This message is shown when quest is failed.
+{
+    - chapter == 1: -> Chapter_1.Fail
+}

@@ -20,7 +20,5 @@ The DialogueSystem and other scripts located in 'Dialogue' folder use Inkly's In
 - Player asks actor if there's work available and and Ink sends #RandomQuest tag that is parsed as a command for QuestSystem to generate a random quest with given actor.
 - QuestSystem selects Collection Quest as a template and fills it in with dialogue actor and the necessary details for sensible phrases (like pronouns and genetives).
 - QuestSystem returns generated story for DialogueSystem and DialogueSystem switches to read new quest story. After player either accepts or rejects the quest, Ink story sends #Return tag as a signal for dialogue to return to first story after (and only after) the current (quest) story can no longer progress.
-<<<<<<< HEAD
-=======
+
 I've included the project's Ink Stories you can check out using Inky if you are interested.
->>>>>>> 169cac3b1c35e2d07ba0cfa18c954c3fd0d9d61a

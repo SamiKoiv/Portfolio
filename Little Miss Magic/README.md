@@ -1,5 +1,7 @@
 # Portfolio
 
+LINK TO BUILD: https://drive.google.com/file/d/1yIiKCyhPU1uALugld8RD8pvn9Fqwvmht/view?usp=sharing
+
 Little Miss Magic was a project name for Roseine's game which aimed in the direction of magical life simulator, with a lot of dialogue content similar to Animal Crossing.
 
 When inspecting the code, a good place to start is _Systems folder, where I have built many of the central systems for the game. The core block for the game would be the Core script and one of it's key roles would be to host most of the game's core systems. This would also help getting rid of quite rich Singleton usage.

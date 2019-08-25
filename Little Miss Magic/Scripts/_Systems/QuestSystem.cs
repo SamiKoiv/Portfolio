@@ -21,7 +21,7 @@ public class QuestSystem : MonoBehaviour
     static List<Quest> QuestLog = new List<Quest>();
     static int QuestID = 1;
 
-    [SerializeField] EventBool openEvent;
+    [SerializeField] EventBool QuestLogOpen;
     [SerializeField] TextMeshProUGUI questNameField;
     [SerializeField] TextMeshProUGUI questDescriptionField;
     [SerializeField] TextMeshProUGUI questObjectiveField;
@@ -46,6 +46,24 @@ public class QuestSystem : MonoBehaviour
         DB = Core.Instance.DB;
     }
 
+    private void OnEnable()
+    {
+        QuestLogOpen.OnChange += ToggleQuestLog;
+    }
+
+    private void OnDisable()
+    {
+        QuestLogOpen.OnChange -= ToggleQuestLog;
+    }
+
+    void ToggleQuestLog(bool isOpen)
+    {
+        if (isOpen)
+            OpenQuestLog();
+        else
+            CloseQuestLog();
+    }
+
     void ResetQuestScreen()
     {
         questNameField.text = string.Empty;
@@ -57,13 +75,12 @@ public class QuestSystem : MonoBehaviour
     public void OpenQuestLog()
     {
         ResetQuestScreen();
-        openEvent.Value = true;
     }
 
     [ContextMenu("Close QuestLog")]
     public void CloseQuestLog()
     {
-        openEvent.Value = false;
+        // Do nothing as of now
     }
 
     public void SetQuestScreen(Quest quest)

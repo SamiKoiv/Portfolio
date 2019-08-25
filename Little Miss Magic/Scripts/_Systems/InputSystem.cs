@@ -32,6 +32,9 @@ public class InputSystem : ManagedBehaviour_Update
     public delegate void BoolEvent(bool value);
     public delegate void Vector2Event(Vector2 value);
 
+    public static event VoidEvent UI_OnToggleInventory;
+    public static event VoidEvent UI_OnToggleQuestLog;
+
     public static event FloatEvent UI_OnMoveX;
     public static event FloatEvent UI_OnMoveY;
     public static event VoidEvent UI_OnSubmit;
@@ -109,6 +112,9 @@ public class InputSystem : ManagedBehaviour_Update
 
     public override void M_Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+
         if (inDialogue)
         {
             if (OnDialogueContinue == null)
@@ -171,8 +177,11 @@ public class InputSystem : ManagedBehaviour_Update
 
         // ------------------------------------------------------------------
 
-        if (Input.GetButtonDown("Inventory"))
-            UISystem.Instance.Inventory_Toggle();
+        if (UI_OnToggleInventory != null && Input.GetButtonDown("Inventory"))
+            UI_OnToggleInventory();
+
+        if (UI_OnToggleQuestLog != null && Input.GetButtonDown("QuestLog"))
+            UI_OnToggleQuestLog();
     }
 
     static void CharacterMovement()

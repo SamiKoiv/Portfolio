@@ -26,6 +26,19 @@ public class UISystem : MonoBehaviour
     {
         InventoryOpen.Value = false;
         DescriptionOpen.Value = false;
+        QuestLogOpen.Value = false;
+    }
+
+    private void OnEnable()
+    {
+        InputSystem.UI_OnToggleInventory += Inventory_Toggle;
+        InputSystem.UI_OnToggleQuestLog += QuestLog_Toggle;
+    }
+
+    private void OnDisable()
+    {
+        InputSystem.UI_OnToggleInventory -= Inventory_Toggle;
+        InputSystem.UI_OnToggleQuestLog += QuestLog_Toggle;
     }
 
     public delegate void VoidEvent();
@@ -71,5 +84,14 @@ public class UISystem : MonoBehaviour
     {
         if (OnDescription_Set != null)
             OnDescription_Set(entry);
+    }
+
+    // Quest Log --------------------------------------------------------------
+
+    [SerializeField] EventBool QuestLogOpen;
+
+    void QuestLog_Toggle()
+    {
+        QuestLogOpen.Value = !QuestLogOpen.Value;
     }
 }

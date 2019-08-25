@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8faf6ff96c15fad4188627a3a349b40b, type: 3}
+  m_Name: Color_Library
+  m_EditorClassIdentifier: 
+  menuButton: {r: 0, g: 0.6, b: 0.6509804, a: 1}
+  menuButtonHighlight: {r: 0, g: 0.9230766, b: 1, a: 1}
+  menuButtonOutline: {r: 0, g: 0.46084332, b: 0.5, a: 1}
+  menuButtonOutlineHighlight: {r: 0, g: 0.8032554, b: 0.8679245, a: 1}

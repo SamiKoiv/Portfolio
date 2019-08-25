@@ -1,6 +1,4 @@
-﻿using Unity.Burst;
-using Unity.Jobs;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ManagedUpdate : MonoBehaviour
 {
@@ -22,22 +20,7 @@ public class ManagedUpdate : MonoBehaviour
         }
     }
 
-    [BurstCompile]
-    struct UpdateJob : IJobParallelFor
-    {
-        public int First;
-        public int Last;
-        public ManagedBehaviour_Update[] Updates;
-
-        public void Execute(int index)
-        {
-            for (int i = First + index; i <= Last; i++)
-            {
-                if (Updates[i] != null)
-                    Updates[i].M_Update();
-            }
-        }
-    }
+    // Update ---------------------------------------------------------------------------------------
 
     void Update()
     {
@@ -48,17 +31,6 @@ public class ManagedUpdate : MonoBehaviour
                 updates[i].M_Update();
         }
     }
-
-    private void LateUpdate()
-    {
-        for (int i = 0; i < lateUpdates.Length; i++)
-        {
-            if (lateUpdates[i] != null)
-                lateUpdates[i].M_LateUpdate();
-        }
-    }
-
-    // Update ---------------------------------------------------------------------------------------
 
     public static void Subscribe(ManagedBehaviour_Update behaviour)
     {
@@ -88,6 +60,15 @@ public class ManagedUpdate : MonoBehaviour
     }
 
     // LateUpdate ---------------------------------------------------------------------------------------
+
+    private void LateUpdate()
+    {
+        for (int i = 0; i < lateUpdates.Length; i++)
+        {
+            if (lateUpdates[i] != null)
+                lateUpdates[i].M_LateUpdate();
+        }
+    }
 
     public static void Subscribe(ManagedBehaviour_LateUpdate behaviour)
     {

@@ -1,7 +1,4 @@
 ﻿using TMPro;
-using Unity.Burst;
-using Unity.Collections;
-using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -111,7 +108,6 @@ public class UI_Juicer : ManagedBehaviour_Update, IPointerEnterHandler, IPointer
 
     #region Private Variables
 
-    bool useJobs = false;
     int innerLoopBatchCount = 100;
 
     // Start variables
@@ -515,47 +511,6 @@ public class UI_Juicer : ManagedBehaviour_Update, IPointerEnterHandler, IPointer
         DoHighlightScale();
     }
 
-    [BurstCompile]
-    struct HighlightImageColorJob : IJobParallelFor
-    {
-        public bool HighlightOn;
-        public Image HighlightImage;
-        public Color CurrentColor;
-        public Color DefaultColor;
-        public Color Tint;
-        public float ColorLerp;
-        public float Prog;
-
-        public void Execute(int index)
-        {
-            if (HighlightOn)
-                HighlightImage.color = Color.Lerp(DefaultColor, Tint, ColorLerp * Prog);
-            else
-                HighlightImage.color = Color.Lerp(DefaultColor, CurrentColor, ColorLerp * Prog);
-
-        }
-    }
-
-    [BurstCompile]
-    struct HighlightTextColorJob : IJobParallelFor
-    {
-        public bool HighlightOn;
-        public TextMeshProUGUI HighlightText;
-        public Color CurrentColor;
-        public Color DefaultColor;
-        public Color Tint;
-        public float ColorLerp;
-        public float Prog;
-
-        public void Execute(int index)
-        {
-            if (HighlightOn)
-                HighlightText.color = Color.Lerp(DefaultColor, Tint, ColorLerp * Prog);
-            else
-                HighlightText.color = Color.Lerp(DefaultColor, Tint, ColorLerp * Prog);
-        }
-    }
-
     void DoHighlightColor()
     {
         if (_Highlight.HighlightImageColors)
@@ -596,91 +551,24 @@ public class UI_Juicer : ManagedBehaviour_Update, IPointerEnterHandler, IPointer
 
     }
 
-    [BurstCompile]
-    struct Highlight_ScalesUpJob : IJobParallelFor
-    {
-        public NativeArray<Vector3> CurrentScales;
-        public NativeArray<Vector3> DefaultScales;
-        public Vector3 ScaleModifier;
-        public float Prog;
-
-        public void Execute(int index)
-        {
-            Vector3 targetScale = new Vector3(DefaultScales[index].x * ScaleModifier.x, DefaultScales[index].y * ScaleModifier.y, DefaultScales[index].z);
-            CurrentScales[index] = Vector3.Lerp(CurrentScales[index], targetScale, Prog);
-        }
-    }
-
-    [BurstCompile]
-    struct Highlight_ScalesDownJob : IJobParallelFor
-    {
-        public NativeArray<Vector3> CurrentScales;
-        public NativeArray<Vector3> DefaultScales;
-        public float Prog;
-
-        public void Execute(int index)
-        {
-            CurrentScales[index] = Vector3.Lerp(DefaultScales[index], CurrentScales[index], Prog);
-        }
-    }
-
     void DoHighlightScale()
     {
         if (!_Highlight.HighlightScale)
             return;
 
-        if (useJobs)
+        if (highlighted)
         {
-            //var jobhandles = new List<JobHandle>();
-            //NativeArray<Vector3> currentScalesArray = new NativeArray<Vector3>(currentScales, Allocator.TempJob);
-            //NativeArray<Vector3> defaultScalesArray = new NativeArray<Vector3>(defaultScales, Allocator.TempJob);
+            float x = defaultScale.x * _Highlight.ScaleModifier.x;
+            float y = defaultScale.y * _Highlight.ScaleModifier.y;
+            float z = defaultScale.z;
 
-            //if (highlighted)
-            //{
-            //    Highlight_ScalesUpJob job = new Highlight_ScalesUpJob
-            //    {
-            //        CurrentScales = currentScalesArray,
-            //        DefaultScales = defaultScalesArray,
-            //        ScaleModifier = ScaleModifier,
-            //        Prog = highlightProg
-            //    };
-
-            //    var jobhandle = job.Schedule(currentScales.Length, innerLoopBatchCount);
-            //    jobhandle.Complete();
-            //}
-            //else
-            //{
-            //    Highlight_ScalesDownJob job = new Highlight_ScalesDownJob
-            //    {
-            //        CurrentScales = currentScalesArray,
-            //        DefaultScales = defaultScalesArray,
-            //        Prog = highlightProg
-            //    };
-
-            //    var jobhandle = job.Schedule(currentScales.Length, innerLoopBatchCount);
-            //    jobhandle.Complete();
-            //}
-
-            //currentScalesArray.CopyTo(currentScales);
-            //currentScalesArray.Dispose();
-            //defaultScalesArray.Dispose();
+            Vector3 targetScale = new Vector3(x, y, z);
+            currentScale = Vector3.Lerp(JuicedT.localScale, targetScale, highlightProg);
         }
         else
         {
-            if (highlighted)
-            {
-                float x = defaultScale.x * _Highlight.ScaleModifier.x;
-                float y = defaultScale.y * _Highlight.ScaleModifier.y;
-                float z = defaultScale.z;
-
-                Vector3 targetScale = new Vector3(x, y, z);
-                currentScale = Vector3.Lerp(JuicedT.localScale, targetScale, highlightProg);
-            }
-            else
-            {
-                Vector3 targetScale = defaultScale;
-                currentScale = Vector3.Lerp(targetScale, JuicedT.localScale, highlightProg);
-            }
+            Vector3 targetScale = defaultScale;
+            currentScale = Vector3.Lerp(targetScale, JuicedT.localScale, highlightProg);
         }
 
         scaleUpdated = true;

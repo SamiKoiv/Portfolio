@@ -7,8 +7,10 @@ public abstract class Character : MonoBehaviour, ICharacter, IGetName, IEquipWit
     protected string m_name;
 
     Equipment m_equipment = new Equipment();
-    IWeapon m_weapon;
-    IArmor m_armor;
+
+    Stats m_baseStats;
+
+    IInventory m_inventory = new Inventory();
 
     public virtual string GetName()
     {

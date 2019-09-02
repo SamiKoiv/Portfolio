@@ -2,22 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : ScriptableObject, IGetName, ISetName
+public abstract class Item : ScriptableObject, IGetName, ISetName, IGetID
 {
-    protected string _name;
+    protected string m_name;
+    protected int m_id;
 
     public void SetItem(string name)
     {
-        _name = name;
+        m_name = name;
     }
 
     public void SetName(string name)
     {
-        _name = name;
+        m_name = name;
     }
 
     public string GetName()
     {
-        return _name;
+        return m_name;
+    }
+
+    public int GetID()
+    {
+        return m_id;
     }
 }

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Character composes of these components.">
+    <Position X="2.844" Y="4" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="Character">
+    <Position X="6.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAQAACAAAAAQAAAAAAIAAAAAAAAAAAAAAFAA=</HashCode>
+      <FileName>Assets\Scripts\Abstract Classes\Character.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_baseStats" />
+      <Field Name="m_equipment" />
+      <Field Name="m_inventory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="Equipment">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAYAQAAAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Equipment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Struct>
+  <Struct Name="Stats">
+    <Position X="5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Stats.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="IInventory">
+    <Position X="8.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAQAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Interfaces\IInventory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

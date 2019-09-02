@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Using GameManager to run game logic.">
+    <Position X="7.656" Y="1.302" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Now I need to figure out what I want the game to do. Such silly obstacles.">
+    <Position X="11.917" Y="1.198" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="GameManager">
+    <Position X="9.5" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

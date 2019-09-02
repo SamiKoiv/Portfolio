@@ -15,8 +15,8 @@ namespace Tests
             Inventory inventory = new Inventory();
             Item testItem = ScriptableObject.CreateInstance<MockItem>();
 
-            inventory.HandItem(testItem);
-            Assert.That(inventory.ContainsItem(testItem));
+            inventory.Store(testItem);
+            Assert.That(inventory.Contains(testItem.GetID()));
         }
 
         [Test]
@@ -31,10 +31,10 @@ namespace Tests
 
             for(int i = 0; i < handedAmount; i++)
             {
-                inventory.HandItem(testItem);
+                inventory.Store(testItem);
             }
 
-            containsItem = inventory.ContainsItem(testItem, out containedAmount);
+            containsItem = inventory.Contains(testItem.GetID(), out containedAmount);
 
             Assert.That(containsItem && containedAmount == handedAmount);
         }
@@ -54,15 +54,15 @@ namespace Tests
 
             for (int i = 0; i < handedAmount; i++)
             {
-                inventory.HandItem(testItem);
+                inventory.Store(testItem);
             }
 
             for (int i = 0; i < reduction; i++)
             {
-                inventory.TakeItem(testItem);
+                inventory.Withdraw(testItem.GetID());
             }
 
-            containsItem = inventory.ContainsItem(testItem, out containedAmount);
+            containsItem = inventory.Contains(testItem.GetID(), out containedAmount);
 
             Assert.That(containsItem && containedAmount == result);
         }
@@ -73,26 +73,7 @@ namespace Tests
             Inventory inventory = new Inventory();
             Item testItem = ScriptableObject.CreateInstance<MockItem>();
 
-            int handedAmount = 3;
-            int reduction = handedAmount + 1;
-            int result = 0;
-
-            bool containsItem;
-            int containedAmount;
-
-            for (int i = 0; i < handedAmount; i++)
-            {
-                inventory.HandItem(testItem);
-            }
-
-            for (int i = 0; i < reduction; i++)
-            {
-                inventory.TakeItem(testItem);
-            }
-
-            containsItem = inventory.ContainsItem(testItem, out containedAmount);
-
-            Assert.That(!containsItem && containedAmount == result);
+            Assert.Throws<InventoryException>(() => inventory.Withdraw(testItem.GetID()));
         }
     }
 }

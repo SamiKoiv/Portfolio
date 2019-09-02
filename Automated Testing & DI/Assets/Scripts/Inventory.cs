@@ -1,34 +1,50 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
-public class Inventory : IHandItem, IContainsItem, ITakeItem
+public class Inventory : IInventory
 {
     List<Item> m_items = new List<Item>();
 
-    public void HandItem(Item item)
+    public void Store(Item item)
     {
         m_items.Add(item);
     }
 
-    public bool ContainsItem(Item item)
+    public Item Withdraw(int id)
     {
-        if (m_items.Contains(item))
+        for (int i = 0; i < m_items.Count; i++)
         {
-            return true;
+            if (m_items[i].GetID() == id)
+            {
+                Item result = m_items[i];
+                m_items.RemoveAt(i);
+                return result;
+            }
         }
-        else
-        {
-            return false;
-        }
+
+        throw new InventoryException("Trying to withdraw non-existent item from inventory. Please use Contains() to ensure item availability.");
     }
 
-    public bool ContainsItem(Item item, out int quantity)
+    public bool Contains(int id)
+    {
+        for (int i = 0; i < m_items.Count; i++)
+        {
+            if (m_items[i].GetID() == id)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool Contains(int id, out int quantity)
     {
         quantity = 0;
 
         for (int i = 0; i < m_items.Count; i++)
         {
-            if (m_items[i] == item)
+            if (m_items[i].GetID() == id)
                 quantity++;
         }
 
@@ -36,18 +52,5 @@ public class Inventory : IHandItem, IContainsItem, ITakeItem
             return true;
         else
             return false;
-    }
-
-    public Item TakeItem(Item item)
-    {
-        if (m_items.Contains(item))
-        {
-            m_items.Remove(item);
-            return item;
-        }
-        else
-        {
-            return null;
-        }
     }
 }

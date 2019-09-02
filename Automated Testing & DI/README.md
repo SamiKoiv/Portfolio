@@ -2,6 +2,8 @@
 
 Here I'm creating a RPG study project, focusing on Automated Testing and Dependecy Injection.
 
+Class Diagrams are located under 'Class Diagrams' folder (use Visual Studio with Class Designer).
+
 Automated Testing:
 - Testing is done using Unity's integrated NUnit Testrunner.
 - Tests are located under 'Editor' folder.

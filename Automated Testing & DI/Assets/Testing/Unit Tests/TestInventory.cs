@@ -24,7 +24,7 @@ public class TestInventory : ZenjectUnitTestFixture
     [Test]
     public void RightContainedAmount()
     {
-        IInventory inventory = new InventoryByID();
+        IInventory inventory = Container.Resolve<IInventory>();
         Item testItem = Container.Resolve<Item>();
 
         int handedAmount = 3;
@@ -44,7 +44,7 @@ public class TestInventory : ZenjectUnitTestFixture
     [Test]
     public void HandleReduction()
     {
-        IInventory inventory = new InventoryByID();
+        IInventory inventory = Container.Resolve<IInventory>();
         Item testItem = Container.Resolve<Item>();
 
         int quantity;
@@ -79,7 +79,7 @@ public class TestInventory : ZenjectUnitTestFixture
     [Test]
     public void HandleInvalidReduction()
     {
-        InventoryByID inventory = new InventoryByID();
+        IInventory inventory = Container.Resolve<IInventory>();
         Item testItem = Container.Resolve<Item>();
 
         Assert.That(inventory.Reduce(testItem.GetID()) == false);

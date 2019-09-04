@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tests
 {
-    public class Character_Test
+    public class TestCharacter
     {
         [Test]
         public void GetCharacterName()

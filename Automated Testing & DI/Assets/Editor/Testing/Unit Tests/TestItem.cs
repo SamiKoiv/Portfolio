@@ -7,7 +7,7 @@ using Mocks;
 
 namespace Tests
 {
-    public class Item_Test
+    public class TestItem
     {
         [Test]
         public void ReturnName()

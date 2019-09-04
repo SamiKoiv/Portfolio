@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 
 namespace Tests
 {
-    public class Stats_Test
+    public class TestStats
     {
         [Test]
         public void CreateAndVerifyStats()

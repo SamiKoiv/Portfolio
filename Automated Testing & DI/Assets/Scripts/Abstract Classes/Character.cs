@@ -10,7 +10,7 @@ public abstract class Character : MonoBehaviour, ICharacter, IGetName, IEquipWit
 
     Stats m_baseStats;
 
-    IInventory m_inventory = new Inventory();
+    IInventory m_inventory = new InventoryByID();
 
     public virtual string GetName()
     {

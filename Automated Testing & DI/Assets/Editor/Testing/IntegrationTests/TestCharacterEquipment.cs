@@ -7,7 +7,7 @@ using Mocks;
 
 namespace Tests
 {
-    public class Character_IntegrationTests
+    public class TestCharacterEquipment
     {
         [Test]
         public void EquipWeapon()

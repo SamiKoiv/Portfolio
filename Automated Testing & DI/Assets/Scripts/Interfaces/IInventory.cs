@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IInventory
 {
-    void Store(Item item);
-    Item Withdraw(int id);
+    void Add(int item);
+    bool Reduce(int id);
     bool Contains(int id);
     bool Contains(int id, out int quantity);
 }

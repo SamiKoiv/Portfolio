@@ -7,7 +7,7 @@ using Mocks;
 
 namespace Tests
 {
-    public class IGetID_IntegrationTest
+    public class TestIGetID
     {
         [Test]
         public void GetWeaponID()

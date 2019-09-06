@@ -8,7 +8,19 @@ public class MainInstaller : ScriptableObjectInstaller<MainInstaller>
 
     public override void InstallBindings()
     {
-        Container.Bind<GameManager>().AsSingle();
-        Container.Bind<IInventory>().To<InventoryByID>().AsTransient();
+        Container.BindInterfacesAndSelfTo<GameManager>()
+            .AsSingle()
+            .NonLazy();
+
+        Container.BindInterfacesAndSelfTo<InputManager>()
+            .AsSingle()
+            .NonLazy();
+
+        Container.Bind<IInventory>()
+            .To<InventoryByID>()
+            .AsTransient();
+
+        Container.Bind<InputManager>()
+            .AsSingle();
     }
 }

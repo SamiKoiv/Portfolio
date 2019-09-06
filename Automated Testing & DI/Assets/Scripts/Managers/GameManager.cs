@@ -5,10 +5,10 @@ using System.Text;
 using UnityEngine;
 using Zenject;
 
-public class GameManager : IInitializable
+public class GameManager : MonoBehaviour
 {
-    public void Initialize()
+    private void Start()
     {
-        Debug.Log("GameManager initialized.");
+        
     }
 }

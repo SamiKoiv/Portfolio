@@ -4,10 +4,16 @@ using Zenject;
 [CreateAssetMenu(fileName = "MainInstaller", menuName = "Installers/MainInstaller")]
 public class MainInstaller : ScriptableObjectInstaller<MainInstaller>
 {
-    [SerializeField] ItemDatabase itemDatabase;
-
     public override void InstallBindings()
     {
+        Container.Bind<GameParameters>()
+            .FromScriptableObjectResource("GameParameters")
+            .AsSingle();
+
+        Container.Bind<ItemDatabase>()
+            .FromScriptableObjectResource("ItemDatabase")
+            .AsSingle();
+
         Container.BindInterfacesAndSelfTo<GameManager>()
             .AsSingle()
             .NonLazy();
@@ -19,8 +25,5 @@ public class MainInstaller : ScriptableObjectInstaller<MainInstaller>
         Container.Bind<IInventory>()
             .To<InventoryByID>()
             .AsTransient();
-
-        Container.Bind<InputManager>()
-            .AsSingle();
     }
 }

@@ -7,7 +7,7 @@ public class TestZenject : ZenjectUnitTestFixture
     [SetUp]
     public void CommonInstall()
     {
-        Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
+        TestInstaller.Install(Container);
     }
 
     [Test]

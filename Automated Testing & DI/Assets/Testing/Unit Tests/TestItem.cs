@@ -11,13 +11,8 @@ public class TestItem : ZenjectUnitTestFixture
     }
 
     [Test]
-    public void ReturnName()
+    public void EmptyTest()
     {
-        string testName = "Apple";
-
-        Item item = Container.Resolve<Item>();
-
-        item.SetItem(testName);
-        Assert.That(item.GetName().Equals(testName));
+        
     }
 }

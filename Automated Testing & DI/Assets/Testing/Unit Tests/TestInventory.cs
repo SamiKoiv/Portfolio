@@ -15,73 +15,54 @@ public class TestInventory : ZenjectUnitTestFixture
     public void Contain()
     {
         IInventory inventory = Container.Resolve<IInventory>();
-        Item testItem = Container.Resolve<Item>();
+        IItem testItem = Container.Resolve<IItem>();
 
-        inventory.Add(testItem.GetID());
+        inventory.Deposit(testItem.GetID());
         Assert.That(inventory.Contains(testItem.GetID()));
     }
 
     [Test]
-    public void RightContainedAmount()
+    public void ContainsRightAmount()
     {
         IInventory inventory = Container.Resolve<IInventory>();
-        Item testItem = Container.Resolve<Item>();
+        IItem testItem = Container.Resolve<IItem>();
 
-        int handedAmount = 3;
+        int deposit = 3;
         bool containsItem;
         int containedAmount;
 
-        for (int i = 0; i < handedAmount; i++)
-        {
-            inventory.Add(testItem.GetID());
-        }
-
+        inventory.Deposit(testItem.GetID(), deposit);
         containsItem = inventory.Contains(testItem.GetID(), out containedAmount);
 
-        Assert.That(containsItem && containedAmount == handedAmount);
+        Assert.That(containsItem && containedAmount == deposit);
     }
 
     [Test]
-    public void HandleReduction()
+    public void ReduceMany()
     {
         IInventory inventory = Container.Resolve<IInventory>();
-        Item testItem = Container.Resolve<Item>();
+        IItem testItem = Container.Resolve<IItem>();
 
-        int quantity;
-        bool hasItem = inventory.Contains(testItem.GetID(), out quantity);
-
-        int handedAmount = 3;
-        int reduction = 2;
-        int result = handedAmount - reduction;
+        int deposit = 3;
+        int withdraw = 2;
+        int result = deposit - withdraw;
 
         bool containsItem;
         int containedAmount;
 
-        for (int i = 0; i < handedAmount; i++)
-        {
-            inventory.Add(testItem.GetID());
-        }
-
-        hasItem = inventory.Contains(testItem.GetID(), out quantity);
-
-        for (int i = 0; i < reduction; i++)
-        {
-            inventory.Reduce(testItem.GetID());
-        }
-
-        hasItem = inventory.Contains(testItem.GetID(), out quantity);
-
+        inventory.Deposit(testItem.GetID(), deposit);
+        inventory.Withdraw(testItem.GetID(), withdraw);
         containsItem = inventory.Contains(testItem.GetID(), out containedAmount);
 
         Assert.That(containsItem && containedAmount == result);
     }
 
     [Test]
-    public void HandleInvalidReduction()
+    public void ReduceTooMuch()
     {
         IInventory inventory = Container.Resolve<IInventory>();
-        Item testItem = Container.Resolve<Item>();
+        IItem testItem = Container.Resolve<IItem>();
 
-        Assert.That(inventory.Reduce(testItem.GetID()) == false);
+        Assert.That(inventory.Withdraw(testItem.GetID()) == false);
     }
 }

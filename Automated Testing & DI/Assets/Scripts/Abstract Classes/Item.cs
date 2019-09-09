@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : ScriptableObject, IGetName, ISetName, IGetID
+public abstract class Item : ScriptableObject, IItem
 {
     protected string m_name;
     protected int m_id;

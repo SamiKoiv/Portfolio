@@ -2,36 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using Mocks;
+using Moq;
 
 public class TestInstaller : Installer<TestInstaller>
 {
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<GameManager>()
+        Container.Bind<GameParameters>()
+            .FromScriptableObjectResource("GameParameters")
             .AsSingle();
 
-        Container.BindInterfacesAndSelfTo<InputManager>()
+        Container.Bind<ItemDatabase>()
+            .FromScriptableObjectResource("ItemDatabase")
             .AsSingle();
+
+        Container.BindInterfacesAndSelfTo<GameManager>()
+            .AsSingle()
+            .NonLazy();
+
+        Container.BindInterfacesAndSelfTo<InputManager>()
+            .AsSingle()
+            .NonLazy();
 
         Container.Bind<IInventory>()
             .To<InventoryByID>()
             .AsTransient();
 
-        Container.Bind<Item>()
-            .To<MockItem>()
-            .AsTransient();
-
-        Container.Bind<IWeapon>()
-            .To<MockWeapon>()
-            .AsTransient();
-
-        Container.Bind<IArmor>()
-            .To<MockArmor>()
-            .AsTransient();
-
-        Container.Bind<ICharacter>()
-            .To<MockCharacter>()
-            .AsTransient();
+        Container.BindInstance(new Mock<IItem>().Object);
+        Container.BindInstance(new Mock<IWeapon>().Object);
+        Container.BindInstance(new Mock<IArmor>().Object);
+        Container.BindInstance(new Mock<ICharacter>().Object);
     }
 }

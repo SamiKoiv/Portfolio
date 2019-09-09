@@ -4,14 +4,30 @@ public class InventoryByID : IInventory
 {
     List<int> m_itemIDs = new List<int>();
 
-    public void Add(int itemID)
+    public void Deposit(int itemID)
     {
         m_itemIDs.Add(itemID);
     }
 
-    public bool Reduce(int id)
+    public void Deposit(int item, int quantity)
+    {
+        for (int i = 0; i < quantity; i++)
+            Deposit(item);
+    }
+
+    public bool Withdraw(int id)
     {
         return m_itemIDs.Remove(id);
+    }
+
+    public bool Withdraw(int id, int quantity)
+    {
+        bool result = false;
+
+        for (int i = 0; i < quantity; i++)
+            result = Withdraw(id);
+
+        return result;
     }
 
     public bool Contains(int id)

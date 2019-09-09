@@ -1,25 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UniRx;
 using Zenject;
-using UnityEngine.Events;
 
-public class InputManager : MonoBehaviour
+public class InputManager : IInitializable
 {
     public static float MoveX { get; private set; }
     public static float MoveY { get; private set; }
 
-    // TODO: Make InputManager react to states like InMenu etc.
-    void Start()
+    public void Initialize()
     {
-        Observable.EveryUpdate()
-            .Where(_ => Input.GetAxis("Horizontal") != MoveX)
-            .Subscribe(_ => MoveX = Input.GetAxis("Horizontal"));
+        //--------------------------------------------------------------------------
+        // MAIN
+        var updateStream = Observable.EveryUpdate()
+            .Where(_ => !GameManager.Loading.Value);
 
-        Observable.EveryUpdate()
-            .Where(_ => Input.GetAxis("Vertical") != MoveY)
-            .Subscribe(_ => MoveY = Input.GetAxis("Vertical"));
+        GameManager.Loading.Subscribe(_ => ResetInput());
+
+        //--------------------------------------------------------------------------
+        // MENU
+
+        //var menuStream = updateStream
+        //    .Where(_ => GameManager.InMenu.Value == true);
+
+        //--------------------------------------------------------------------------
+        // GAMEPLAY
+        var gameplayStream = updateStream
+            .Where(_ => GameManager.InMenu.Value == false);
+
+        var moveX = gameplayStream
+            .Select(x => Input.GetAxis("Horizontal"))
+            .Subscribe(x => MoveX = x);
+
+        var moveY = gameplayStream
+            .Select(y => Input.GetAxis("Vertical"))
+            .Subscribe(y => MoveY = y);
+
+        //--------------------------------------------------------------------------
+        // DEBUG
+
+        //var debug = gameplayStream
+        //    .Subscribe(_ => Debug.Log($"X: {MoveX}, Y: {MoveY}"));
     }
-    
+
+    void ResetInput()
+    {
+        MoveX = 0;
+        MoveY = 0;
+    }
+
 }

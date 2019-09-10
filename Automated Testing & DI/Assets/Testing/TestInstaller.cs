@@ -28,9 +28,9 @@ public class TestInstaller : Installer<TestInstaller>
             .To<InventoryByID>()
             .AsTransient();
 
-        Container.BindInstance(new Mock<IItem>().Object);
-        Container.BindInstance(new Mock<IWeapon>().Object);
-        Container.BindInstance(new Mock<IArmor>().Object);
-        Container.BindInstance(new Mock<ICharacter>().Object);
+        Container.Bind<IItem>().FromMock();
+        Container.Bind<IWeapon>().FromMock();
+        Container.Bind<IArmor>().FromMock();
+        Container.Bind<ICharacter>().FromMock();
     }
 }

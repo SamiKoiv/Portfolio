@@ -8,6 +8,8 @@ using UniRx;
 
 public class GameManager : IInitializable, ITickable
 {
+    SceneLoader sceneLoader;
+
     public static ReactiveProperty<bool> InMenu { get; private set; }
     public static ReactiveProperty<bool> Loading { get; private set; }
 

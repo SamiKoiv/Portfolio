@@ -1,0 +1,5 @@
+Development Notes
+
+- Character is too difficult to create on when restricted to recipes.
+
+Last time:

@@ -12,6 +12,13 @@ public class TestInventory : ZenjectUnitTestFixture
     }
 
     [Test]
+    public void Injection()
+    {
+        IInventory inventory = Container.Resolve<IInventory>();
+        Assert.That(inventory != null);
+    }
+
+    [Test]
     public void Contain()
     {
         IInventory inventory = Container.Resolve<IInventory>();

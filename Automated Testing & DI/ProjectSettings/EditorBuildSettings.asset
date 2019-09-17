@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: 4b548a2e4dd8a3344ae15ae628083a0a
   - enabled: 1
-    path: Assets/Scenes/FrontPage.unity
-    guid: b9ef974cacac9f34481ed744bbe27f7e
+    path: Assets/Scenes/Idlegame StartScreen.unity
+    guid: bd743fc23a8a3a44d9857f59a0f3a990
   - enabled: 1
     path: Assets/Scenes/Navigation Bar.unity
     guid: 4a3f3072703600f4195311ba77bd4bcf

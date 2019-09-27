@@ -9,6 +9,6 @@ Brief introduction:
   - Automated Testing using Unity Test Runner
   - Reactive Extensions using UniRX
 
-- Little Miss Magic is my most recent project. Be sure to take a look at README to get started on what is going on in there.
+- Little Miss Magic demonstrates some of the code I created during my time at Roseine. Be sure to take a look at README to get started on what is going on in there.
 
 - Third Person RPG is an older project where I tried different kind of approaches building features and architecture.
